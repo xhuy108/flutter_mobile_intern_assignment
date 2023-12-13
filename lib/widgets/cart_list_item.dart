@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:math' as math;
 
 import 'package:flutter_mobile_intern_assignment/config/app_color.dart';
+import 'package:flutter_mobile_intern_assignment/cubit/store_cubit.dart';
 import 'package:flutter_mobile_intern_assignment/models/cart_item.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -90,7 +92,15 @@ class CartListItem extends StatelessWidget {
                           width: 24,
                           height: 24,
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              if (item.quantity == 1) {
+                                context.read<StoreCubit>().removeFromCart(item);
+                              } else {
+                                context
+                                    .read<StoreCubit>()
+                                    .decreaseCartItemQuantity(item);
+                              }
+                            },
                             style: IconButton.styleFrom(
                               backgroundColor: const Color(0xFFEEEEEE),
                             ),
@@ -116,7 +126,11 @@ class CartListItem extends StatelessWidget {
                           width: 24,
                           height: 24,
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              context
+                                  .read<StoreCubit>()
+                                  .increaseCartItemQuantity(item);
+                            },
                             style: IconButton.styleFrom(
                               backgroundColor: const Color(0xFFEEEEEE),
                             ),
@@ -130,7 +144,7 @@ class CartListItem extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        print('trash');
+                        context.read<StoreCubit>().removeFromCart(item);
                       },
                       child: Container(
                         width: 24,
