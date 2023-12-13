@@ -10,8 +10,20 @@ import 'package:flutter_mobile_intern_assignment/widgets/background_clipper.dart
 import 'package:flutter_mobile_intern_assignment/widgets/screen_card.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<StoreCubit>().loadProducts();
+    context.read<StoreCubit>().loadCart();
+  }
 
   @override
   Widget build(BuildContext context) {

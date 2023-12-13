@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 
 import 'package:flutter_mobile_intern_assignment/models/cart_item.dart';
 import 'package:flutter_mobile_intern_assignment/models/product.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'store_state.dart';
 
@@ -44,6 +45,8 @@ class StoreCubit extends Cubit<StoreState> {
             state.cartTotalPrice + item.product.price * item.quantity,
       ),
     );
+
+    saveCart();
   }
 
   void removeFromCart(CartItem item) {
@@ -59,6 +62,8 @@ class StoreCubit extends Cubit<StoreState> {
         cartTotalPrice: totalPrice.abs(),
       ),
     );
+
+    saveCart();
   }
 
   void increaseCartItemQuantity(CartItem item) {
@@ -74,6 +79,8 @@ class StoreCubit extends Cubit<StoreState> {
         cartTotalPrice: state.cartTotalPrice + item.product.price,
       ),
     );
+
+    saveCart();
   }
 
   void decreaseCartItemQuantity(CartItem item) {
@@ -91,5 +98,67 @@ class StoreCubit extends Cubit<StoreState> {
         cartTotalPrice: totalPrice,
       ),
     );
+
+    saveCart();
+  }
+
+  Future<void> loadCart() async {
+    try {
+      emit(
+        state.copyWith(
+          cartsStatus: StoreStatus.loading,
+        ),
+      );
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      List<String>? cartItemsJson = prefs.getStringList('cart');
+
+      List<CartItem> loadedCart = [];
+
+      //print(cartItemsJson);
+
+      if (cartItemsJson != null) {
+        loadedCart = cartItemsJson
+            .map(
+              (json) => CartItem.fromJson(
+                jsonDecode(json),
+              ),
+            )
+            .toList();
+      }
+
+      double totalPrice = 0;
+      for (final item in loadedCart) {
+        totalPrice += (item.product.price * item.quantity);
+      }
+
+      emit(
+        state.copyWith(
+          cart: [...state.cart, ...loadedCart],
+          cartTotalPrice: totalPrice,
+          cartsStatus: StoreStatus.success,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          cartsStatus: StoreStatus.failed,
+        ),
+      );
+    }
+  }
+
+  void saveCart() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    List<String> cartItemsJson = state.cart
+        .map(
+          (item) => jsonEncode(
+            item.toJson(),
+          ),
+        )
+        .toList();
+
+    prefs.setStringList('cart', cartItemsJson);
   }
 }

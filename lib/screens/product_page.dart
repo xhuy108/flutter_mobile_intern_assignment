@@ -6,19 +6,8 @@ import 'package:flutter_mobile_intern_assignment/cubit/store_cubit.dart';
 
 import 'package:flutter_mobile_intern_assignment/widgets/product_item.dart';
 
-class ProductPage extends StatefulWidget {
+class ProductPage extends StatelessWidget {
   const ProductPage({super.key});
-
-  @override
-  State<ProductPage> createState() => _ProductPageState();
-}
-
-class _ProductPageState extends State<ProductPage> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<StoreCubit>().loadProducts();
-  }
 
   @override
   Widget build(BuildContext context) {
