@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile_intern_assignment/config/app_color.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_mobile_intern_assignment/cubit/store_cubit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flutter_mobile_intern_assignment/screens/home_page.dart';
@@ -22,7 +23,14 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => StoreCubit(),
+          ),
+        ],
+        child: const HomePage(),
+      ),
     );
   }
 }

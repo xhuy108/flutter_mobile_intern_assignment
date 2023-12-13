@@ -1,13 +1,26 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_mobile_intern_assignment/models/product.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math' as math;
 
 import 'package:flutter_mobile_intern_assignment/config/app_color.dart';
 import 'package:flutter_mobile_intern_assignment/widgets/add_to_cart_button.dart';
 
-class ProductItem extends StatelessWidget {
-  const ProductItem({super.key});
+class ProductItem extends StatefulWidget {
+  const ProductItem({
+    super.key,
+    required this.product,
+  });
 
+  final Product product;
+
+  @override
+  State<ProductItem> createState() => _ProductItemState();
+}
+
+class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,7 +31,7 @@ class ProductItem extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),
-          color: Color(0xFF4D317F),
+          color: Color(int.parse(widget.product.color.replaceAll('#', '0xff'))),
           child: Transform.rotate(
             angle: -math.pi / 7.5,
             child: Padding(
@@ -28,7 +41,7 @@ class ProductItem extends StatelessWidget {
                 bottom: 24,
               ),
               child: Image.network(
-                'https://s3-us-west-2.amazonaws.com/s.cdpn.io/1315882/air-zoom-pegasus-36-mens-running-shoe-wide-D24Mcz-removebg-preview.png',
+                widget.product.image,
                 fit: BoxFit.cover,
               ),
             ),
@@ -38,7 +51,7 @@ class ProductItem extends StatelessWidget {
           height: 16,
         ),
         Text(
-          'Nike Air Zoom Pegasus 36',
+          widget.product.name,
           style: GoogleFonts.rubik(
             fontWeight: FontWeight.w700,
             fontSize: 20,
@@ -48,8 +61,8 @@ class ProductItem extends StatelessWidget {
           height: 16,
         ),
         Text(
-          'The Nike Air Zoom Pegasus 36 Shield gets updated to conquer wet routes. A water-repellent upper combines with an outsole that helps create grip on wet surfaces, letting you run in confidence despite the weather.',
-          style: TextStyle(
+          widget.product.description,
+          style: const TextStyle(
             fontSize: 13,
             color: AppColor.gray,
           ),
@@ -61,7 +74,7 @@ class ProductItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '\$120',
+              '\$${widget.product.price}',
               style: GoogleFonts.rubik(
                 fontWeight: FontWeight.w700,
                 fontSize: 18,
@@ -71,9 +84,15 @@ class ProductItem extends StatelessWidget {
               width: 16,
             ),
             AddToCartButton(
-              onPressed: () {
-                print('Add to cart');
-              },
+              content: Text(
+                'ADD TO CART',
+                style: GoogleFonts.rubik(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                  color: AppColor.black,
+                ),
+              ),
+              onPressed: () {},
             ),
           ],
         ),

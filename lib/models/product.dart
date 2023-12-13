@@ -1,5 +1,5 @@
 class Product {
-  String id;
+  int id;
   String image;
   String name;
   String description;
@@ -21,7 +21,7 @@ class Product {
       image: json['image'],
       name: json['name'],
       description: json['description'],
-      price: json['price'],
+      price: (json['price'] as num).toDouble(),
       color: json['color'],
     );
   }

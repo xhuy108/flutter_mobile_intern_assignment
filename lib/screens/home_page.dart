@@ -1,10 +1,13 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_mobile_intern_assignment/config/app_color.dart';
 import 'package:flutter_mobile_intern_assignment/screens/cart_page.dart';
 import 'package:flutter_mobile_intern_assignment/screens/product_page.dart';
 import 'package:flutter_mobile_intern_assignment/widgets/background_clipper.dart';
 import 'package:flutter_mobile_intern_assignment/widgets/screen_card.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -32,18 +35,45 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            const Align(
+            Align(
               alignment: Alignment.center,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ScreenCard(
-                    title: 'Our products',
-                    child: ProductPage(),
+                    title: Text(
+                      'Our Products',
+                      style: GoogleFonts.rubik(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 24,
+                      ),
+                    ),
+                    child: const ProductPage(),
+                  ),
+                  const SizedBox(
+                    width: 40,
                   ),
                   ScreenCard(
-                    title: 'Your cart',
-                    child: CartPage(),
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Your cart',
+                          style: GoogleFonts.rubik(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 24,
+                          ),
+                        ),
+                        Text(
+                          '\$108.97',
+                          style: GoogleFonts.rubik(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 24,
+                          ),
+                        ),
+                      ],
+                    ),
+                    child: const CartPage(),
                   ),
                 ],
               ),

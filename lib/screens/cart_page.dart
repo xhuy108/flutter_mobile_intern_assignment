@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobile_intern_assignment/widgets/cart_list_item.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -10,6 +11,9 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
-    return const Text('cart');
+    return ListView.builder(
+      itemCount: 10,
+      itemBuilder: (ctx, index) => const CartListItem(),
+    );
   }
 }

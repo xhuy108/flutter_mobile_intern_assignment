@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_intern_assignment/config/app_color.dart';
 import 'package:flutter_mobile_intern_assignment/widgets/screen_card_clipper.dart';
@@ -6,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 class ScreenCard extends StatelessWidget {
   const ScreenCard({super.key, required this.title, required this.child});
 
-  final String title;
+  final Widget title;
   final Widget child;
 
   @override
@@ -49,19 +50,22 @@ class ScreenCard extends StatelessWidget {
               const SizedBox(
                 height: 12,
               ),
-              Text(
-                title,
-                style: GoogleFonts.rubik(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 24,
-                ),
-              ),
+              title,
               const SizedBox(
                 height: 16,
               ),
               SizedBox(
                 height: 500,
-                child: child,
+                child: ScrollConfiguration(
+                  behavior: ScrollConfiguration.of(context).copyWith(
+                    scrollbars: false,
+                    dragDevices: {
+                      PointerDeviceKind.touch,
+                      PointerDeviceKind.mouse,
+                    },
+                  ),
+                  child: child,
+                ),
               ),
             ],
           ),
