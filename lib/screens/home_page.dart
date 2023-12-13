@@ -1,14 +1,13 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flutter_mobile_intern_assignment/config/app_color.dart';
-import 'package:flutter_mobile_intern_assignment/cubit/store_cubit.dart';
 import 'package:flutter_mobile_intern_assignment/screens/cart_page.dart';
 import 'package:flutter_mobile_intern_assignment/screens/product_page.dart';
 import 'package:flutter_mobile_intern_assignment/widgets/background_clipper.dart';
 import 'package:flutter_mobile_intern_assignment/widgets/screen_card.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_mobile_intern_assignment/cubit/store_cubit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
