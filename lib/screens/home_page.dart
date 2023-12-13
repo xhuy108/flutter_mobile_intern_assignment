@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,6 +27,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+
     final cartTotalPrice = context.watch<StoreCubit>().state.cartTotalPrice;
 
     return Scaffold(
@@ -49,47 +53,94 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ScreenCard(
-                    title: Text(
-                      'Our Products',
-                      style: GoogleFonts.rubik(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 24,
-                      ),
-                    ),
-                    child: const ProductPage(),
-                  ),
-                  const SizedBox(
-                    width: 40,
-                  ),
-                  ScreenCard(
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Your cart',
-                          style: GoogleFonts.rubik(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 24,
-                          ),
+            SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.only(top: height * 0.1),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: width > 845
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ScreenCard(
+                              title: Text(
+                                'Our Products',
+                                style: GoogleFonts.rubik(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 24,
+                                ),
+                              ),
+                              child: const ProductPage(),
+                            ),
+                            const SizedBox(
+                              width: 40,
+                            ),
+                            ScreenCard(
+                              title: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Your cart',
+                                    style: GoogleFonts.rubik(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 24,
+                                    ),
+                                  ),
+                                  Text(
+                                    '\$${cartTotalPrice.toStringAsFixed(2)}',
+                                    style: GoogleFonts.rubik(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 24,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              child: const CartPage(),
+                            ),
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            ScreenCard(
+                              title: Text(
+                                'Our Products',
+                                style: GoogleFonts.rubik(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 24,
+                                ),
+                              ),
+                              child: const ProductPage(),
+                            ),
+                            const SizedBox(
+                              height: 40,
+                            ),
+                            ScreenCard(
+                              title: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Your cart',
+                                    style: GoogleFonts.rubik(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 24,
+                                    ),
+                                  ),
+                                  Text(
+                                    '\$${cartTotalPrice.toStringAsFixed(2)}',
+                                    style: GoogleFonts.rubik(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 24,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              child: const CartPage(),
+                            ),
+                          ],
                         ),
-                        Text(
-                          '\$${cartTotalPrice.toStringAsFixed(2)}',
-                          style: GoogleFonts.rubik(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 24,
-                          ),
-                        ),
-                      ],
-                    ),
-                    child: const CartPage(),
-                  ),
-                ],
+                ),
               ),
             ),
           ],
