@@ -34,4 +34,12 @@ class StoreCubit extends Cubit<StoreState> {
       ));
     }
   }
+
+  void addToCart(CartItem item) {
+    emit(
+      state.copyWith(
+        cart: [...state.cart, item],
+      ),
+    );
+  }
 }

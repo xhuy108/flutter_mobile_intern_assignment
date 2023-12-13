@@ -14,7 +14,7 @@ class AddToCartButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.symmetric(
           horizontal: 20,
-          vertical: 18,
+          vertical: 20,
         ),
         backgroundColor: AppColor.yellow,
       ),

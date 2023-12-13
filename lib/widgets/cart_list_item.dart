@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import 'package:flutter_mobile_intern_assignment/config/app_color.dart';
+import 'package:flutter_mobile_intern_assignment/models/cart_item.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CartListItem extends StatelessWidget {
-  const CartListItem({super.key});
+  const CartListItem({super.key, required this.item});
+
+  final CartItem item;
 
   @override
   Widget build(BuildContext context) {
@@ -16,20 +19,17 @@ class CartListItem extends StatelessWidget {
           Stack(
             children: [
               Container(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(4),
                 width: 120,
                 height: 100,
                 child: Container(
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.red,
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(0, 1),
-                        color: AppColor.gray,
-                        blurRadius: 12,
+                    color: Color(
+                      int.parse(
+                        item.product.color.replaceAll('#', '0xff'),
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
@@ -45,7 +45,7 @@ class CartListItem extends StatelessWidget {
                       bottom: 24,
                     ),
                     child: Image.network(
-                      'https://s3-us-west-2.amazonaws.com/s.cdpn.io/1315882/odyssey-react-flyknit-2-mens-running-shoe-T3VG7N-removebg-preview.png',
+                      item.product.image,
                       fit: BoxFit.cover,
                       width: 120,
                     ),
@@ -62,7 +62,7 @@ class CartListItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'Nike Air Max 270',
+                  item.product.name,
                   style: GoogleFonts.rubik(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
@@ -72,7 +72,7 @@ class CartListItem extends StatelessWidget {
                   height: 8,
                 ),
                 Text(
-                  '\$200',
+                  '\$${item.product.price}',
                   style: GoogleFonts.rubik(
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
@@ -103,7 +103,12 @@ class CartListItem extends StatelessWidget {
                         const SizedBox(
                           width: 8,
                         ),
-                        Text('1'),
+                        Text(
+                          item.quantity.toString(),
+                          style: const TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
                         const SizedBox(
                           width: 8,
                         ),
