@@ -15,6 +15,7 @@ flutter pub get
 ```sh
 flutter run
 ```
+Then choose the device to run.
 ## Deployed Application
 [Live Demo](https://flutter-shoes-store.web.app/)
 
